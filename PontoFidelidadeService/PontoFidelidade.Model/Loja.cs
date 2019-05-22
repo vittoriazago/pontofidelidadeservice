@@ -7,10 +7,13 @@ namespace PontoFidelidade.Model
     public class Loja : IValidatableObject
     {
         [Required(ErrorMessage = "Identificador da loja obrigatório!")]
-        public Guid Id { get; set; }
+        public Guid LojaId { get; set; }
         
         [StringLength(999999, MinimumLength = 1, ErrorMessage = "Código inválido!")]
         public string Codigo { get; set; }
+
+        [Required(ErrorMessage = "Chave de integração obrigatória!")]
+        public Guid ChaveIntegracao { get; set; }
 
         [Required(ErrorMessage = "Descrição obrigatório!")]
         [StringLength(200, ErrorMessage = "Descrição deve conter no máximo 200 caractéres!")]
@@ -35,14 +38,14 @@ namespace PontoFidelidade.Model
             if (DataCadastro > DateTime.Today)
             {
                 yield return new ValidationResult(
-                    $"Data de cadastro de uma loja deve ser maior que hoje!",
+                    $"Data de cadastro de uma loja não pode ser maior que hoje!",
                     new[] { "DataCadastro" });
             }
             if (DataAbertura > DateTime.Today)
             {
                 yield return new ValidationResult(
-                    $"Data de abertura de uma loja deve ser maior que hoje!",
-                    new[] { "DataCadastro" });
+                    $"Data de abertura de uma loja não pode ser maior que hoje!",
+                    new[] { "DataAbertura" });
             }
         }
     }
