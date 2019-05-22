@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PontoFidelidade.WebApi", "PontoFidelidadeService\PontoFidelidade.WebApi.csproj", "{68F4D38D-39A5-46F4-9045-10C20E43B884}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PontoFidelidade.Model", "PontoFidelidade.Model\PontoFidelidade.Model.csproj", "{39F1848C-0FA5-401A-BCA9-8E99FE46B069}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PontoFidelidade.Domain", "PontoFidelidade.Domain\PontoFidelidade.Domain.csproj", "{39F1848C-0FA5-401A-BCA9-8E99FE46B069}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PontoFidelidade.Persistence", "PontoFidelidade.Persistence\PontoFidelidade.Persistence.csproj", "{2246ABF9-2F0E-4F93-A88C-439B616F2D88}"
 EndProject

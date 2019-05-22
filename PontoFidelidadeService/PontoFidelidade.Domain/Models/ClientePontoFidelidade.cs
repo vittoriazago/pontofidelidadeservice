@@ -1,9 +1,9 @@
-﻿using PontoFidelidade.Model.Enums;
+﻿using PontoFidelidade.Domain.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PontoFidelidade.Model
+namespace PontoFidelidade.Domain.Models
 {
     public class ClientePontoFidelidade : IValidatableObject
     {

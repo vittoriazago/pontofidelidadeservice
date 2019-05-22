@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace PontoFidelidade.Model
+namespace PontoFidelidade.Domain.Models
 {
     public class Cliente : IValidatableObject
     {

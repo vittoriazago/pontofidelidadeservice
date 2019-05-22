@@ -1,14 +1,15 @@
-﻿using PontoFidelidade.Model.Enums;
+﻿using PontoFidelidade.Domain.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PontoFidelidade.Model.Fotografia
+namespace PontoFidelidade.Domain.Models.Fotografia
 {
-    public class PontoFidelidadeFotografia : IValidatableObject
+    public class MovimentacaoFotografia : IValidatableObject
     {
-        [Required(ErrorMessage = "Identificador do ponto fidelidade obrigatório!")]
-        public Guid ClientePontoFidelidadeFotografiaId { get; set; }
+        [Required(ErrorMessage = "Identificador da fotografia obrigatório!")]
+        public Guid MovimentacaoFotografiaId { get; set; }
+
         /// <summary>
         /// Identificador do cliente que representa o lote
         /// </summary>
@@ -20,14 +21,14 @@ namespace PontoFidelidade.Model.Fotografia
         /// </summary>
         [Required(ErrorMessage = "Saldo inicial obrigatório!")]
         [Range(0, 9999999, ErrorMessage = "Saldo inicial inválido!")]
-        public long SaldoInicial { get; set; }
+        public decimal SaldoInicial { get; set; }
 
         /// <summary>
         /// Saldo do cliente no dia final da fotografia
         /// </summary>
         [Required(ErrorMessage = "Saldo final obrigatório!")]
         [Range(0, 9999999, ErrorMessage = "Saldo final inválido!")]
-        public long SaldoFinal { get; set; }
+        public decimal SaldoFinal { get; set; }
 
         /// <summary>
         /// Data do inicio do lote de movimentações
@@ -50,7 +51,7 @@ namespace PontoFidelidade.Model.Fotografia
         [Range(0, 9999999, ErrorMessage = "Saldo atual inválido!")]
         public int QuantidadeOperacoes { get; set; }
 
-        public List<ClientePontoFidelidadeFotografia> Movimentacoes { get; set; }
+        public List<ClienteMovimentacaoFotografia> Movimentacoes { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

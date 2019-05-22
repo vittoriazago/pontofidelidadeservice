@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PontoFidelidade.Model
+namespace PontoFidelidade.Domain.Models
 {
     public class Loja : IValidatableObject
     {
