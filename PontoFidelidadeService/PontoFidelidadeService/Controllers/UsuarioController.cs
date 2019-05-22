@@ -21,14 +21,14 @@ namespace PontoFidelidade.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
         private readonly IConfiguration _config;
         private readonly SignInManager<Usuario> _signInManager;
         private readonly UserManager<Usuario> _UsuarioManager;
         private readonly IMapper _mapper;
 
-        public UserController(IConfiguration config,
+        public UsuarioController(IConfiguration config,
             SignInManager<Usuario> signInManager,
             UserManager<Usuario> UsuarioManager,
             IMapper mapper
