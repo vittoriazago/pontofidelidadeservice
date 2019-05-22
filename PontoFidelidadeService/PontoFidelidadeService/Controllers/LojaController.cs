@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PontoFidelidade.Domain.Models;
 using PontoFidelidade.Domain.Services;
+using PontoFidelidade.WebApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using static PontoFidelidade.Domain.Services.LojaService;
 
@@ -23,28 +26,38 @@ namespace PontoFidelidade.WebApi.Controllers
             _lojaService = lojaService;
             _mapper = mapper;
         }
-
+        /// <summary>
+        /// Recupera lojas de acordo com o status
+        /// </summary>
+        /// <param name="ativo">Filtras lojas ativas ou não</param>
+        /// <returns></returns>
         [HttpGet("")]
-        public async Task<ActionResult<IEnumerable<Loja>>> Get(bool? ativo = true)
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<LojaConsultaDto>>> Get(bool? ativo = true)
         {
             var lojas = await _lojaService.ConsultaLojas(ativo.Value);
 
-            var lojasDtos = _mapper.Map<IEnumerable<Loja>>(lojas);
+            var lojasDtos = _mapper.Map<IEnumerable<LojaConsultaDto>>(lojas);
 
             return Ok(lojasDtos);
         }
 
         /// <summary>
-        /// Atualiza informações sobre a loja
+        /// Atualiza informações sobre a loja 
         /// </summary>
+        /// <remarks>
+        /// Apenas usuários vinculados a loja podem alterar essas informações
+        /// </remarks>
         /// <param name="id">Identificador da loja</param>
-        /// <param name="idUsuario">Usuário vinculado com a loja</param>
         /// <param name="alteraLojaDto">Objeto com dados para alteração</param>
         /// <returns></returns>
-        [HttpGet("{id}")]
-        public async Task<IActionResult> PutAtualizaLoja([FromRoute]Guid id, int idUsuario, AlteraLojaDto alteraLojaDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAtualizaLoja([FromRoute]Guid id, AlteraLojaDto alteraLojaDto)
         {
-            await _lojaService.AlteraLoja(idUsuario, id, alteraLojaDto);
+            ClaimsPrincipal currentUser = this.User;
+            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            await _lojaService.AlteraLoja(int.Parse(currentUserID), id, alteraLojaDto);
             return Ok();
         }
 

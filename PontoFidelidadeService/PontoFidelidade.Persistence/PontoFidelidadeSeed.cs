@@ -34,14 +34,12 @@ namespace PontoFidelidade.Persistence
         {
             var Lojas = new[]
             {
-                new Loja {
-                    LojaId = Guid.NewGuid(), Ativo = true, Descricao = "Minhas roupas na moda!", DataCadastro = DateTime.ParseExact("2011-11-01", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture),
-                },
-                new Loja { LojaId = Guid.NewGuid(), Ativo = true, Descricao = "Hamburguers top",  DataCadastro = DateTime.ParseExact("2002-02-27", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
-                new Loja { LojaId = Guid.NewGuid(),  Ativo = true, Descricao = "Comida Cazeira da Maria",  DataCadastro = DateTime.ParseExact("2019-02-11", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
-                new Loja { LojaId = Guid.NewGuid(),  Ativo = true, Descricao = "Loja da Vittoria",  DataCadastro = DateTime.ParseExact("2018-05-08", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture) },
-                new Loja { LojaId = Guid.NewGuid(),  Ativo = true, Descricao = "Periféricos PontoCom",  DataCadastro = DateTime.ParseExact("2018-05-30", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
-                new Loja { LojaId = Guid.NewGuid(),  Ativo = true, Descricao = "Posto MeuAmigo", DataCadastro = DateTime.ParseExact("2015-10-10", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
+                LojaNovo("Minhas roupas na moda!", "2011-11-01", "62297611000109"),
+                LojaNovo("Hamburguers top",  "2002-02-27", "15655888000178"),
+                LojaNovo("Comida Cazeira da Maria",  "2019-02-11", "02649929000171"),
+                LojaNovo("Loja da Vittoria",  "2018-05-08", "93984583000113"),
+                LojaNovo("Periféricos PontoCom",  "2018-05-30", "06936230000143"),
+                LojaNovo("Posto MeuAmigo", "2015-10-10", "30519970000169"),
             };
 
             context.Loja.AddRange(Lojas);
@@ -66,14 +64,33 @@ namespace PontoFidelidade.Persistence
             return clients;
         }
 
-        private Cliente ClienteNovo(
-            Guid idLoja,
-            string nome,
-            string dataNascimento = null,
-            string cnpj = null,
-            decimal? valorCredito = 5M,
-            long? pontos = 100
+        private Loja LojaNovo(
+            string descricao,
+            string dataAbertura = null,
+            string cnpj = null
             )
+        {
+            var id = Guid.NewGuid();
+            return new Loja
+            {
+                LojaId = Guid.NewGuid(),
+                Ativo = true,
+                Descricao = descricao,
+                DataCadastro = DateTime.Now,
+                DataAbertura = DateTime.ParseExact(dataAbertura, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture),
+                ChaveIntegracao = Guid.NewGuid(),
+                CNPJ = cnpj,
+                Codigo = (Guid.NewGuid().ToString()).Substring(0,3),
+            };
+        }
+        private Cliente ClienteNovo(
+           Guid idLoja,
+           string nome,
+           string dataNascimento = null,
+           string cnpj = null,
+           decimal? valorCredito = 5M,
+           long? pontos = 100
+           )
         {
             var id = Guid.NewGuid();
             return new Cliente
