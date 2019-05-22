@@ -32,7 +32,8 @@ namespace PontoFidelidade.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        [Authorize]
+        public async Task<ActionResult<Cliente>> Get(Guid id)
         {
             var cliente = await _clienteService.ConsultaClientePorId(id);
 

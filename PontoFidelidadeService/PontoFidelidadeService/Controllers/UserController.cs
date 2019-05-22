@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using PontoFidelidade.Domain.Models;
 using PontoFidelidade.WebApi.Models;
@@ -46,6 +47,8 @@ namespace PontoFidelidade.WebApi.Controllers
             try
             {
                 var usuario = _mapper.Map<Usuario>(usuarioNovoDto);
+                usuario.Ativo = true;
+                usuario.DataCadastro = DateTime.Now;
                 var result = await _UsuarioManager.CreateAsync(usuario, usuarioNovoDto.Password);
 
                 var usuarioDto = _mapper.Map<UsuarioNovoDto>(usuario);
@@ -107,13 +110,15 @@ namespace PontoFidelidade.WebApi.Controllers
 
             var key = new SymmetricSecurityKey(Encoding.ASCII
                 .GetBytes(_config.GetSection("AppSettings:Token").Value));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddHours(5),
                 SigningCredentials = creds
             };
+
+            IdentityModelEventSource.ShowPII = true;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);

@@ -36,7 +36,7 @@ namespace PontoFidelidade.WebApi
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuerSigningKey = true,
+                        ValidateIssuerSigningKey = false,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
                             .GetBytes(privateToken)),
                         ValidateIssuer = false,

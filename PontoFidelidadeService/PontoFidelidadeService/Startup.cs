@@ -39,7 +39,7 @@ namespace PontoFidelidadeService
                 x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
 
-            services.ConfigureAuthentication(Configuration.GetSection("AppSettings:PrivateToken").Value);
+            services.ConfigureAuthentication(Configuration.GetSection("AppSettings:Token").Value);
 
             services.AddMvc(options => {
                 var policy = new AuthorizationPolicyBuilder()
