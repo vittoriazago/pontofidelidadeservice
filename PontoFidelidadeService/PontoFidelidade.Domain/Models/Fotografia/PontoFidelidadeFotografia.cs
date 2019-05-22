@@ -8,7 +8,7 @@ namespace PontoFidelidade.Domain.Models.Fotografia
     public class PontoFidelidadeFotografia : IValidatableObject
     {
         [Required(ErrorMessage = "Identificador do ponto fidelidade obrigatório!")]
-        public Guid ClientePontoFidelidadeFotografiaId { get; set; }
+        public Guid PontoFidelidadeFotografiaId { get; set; }
         /// <summary>
         /// Identificador do cliente que representa o lote
         /// </summary>

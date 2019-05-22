@@ -23,6 +23,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PontoFidelidade.Persistence\PontoFidelidade.Persistence.csproj" />
+    <ProjectReference Include="..\PontoFidelidade.Domain\PontoFidelidade.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
