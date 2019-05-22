@@ -35,13 +35,13 @@ namespace PontoFidelidade.Persistence
             var Lojas = new[]
             {
                 new Loja {
-                    LojaId = Guid.NewGuid(), Descricao = "Minhas roupas na moda!", DataCadastro = DateTime.ParseExact("2011-11-01", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture),
+                    LojaId = Guid.NewGuid(), Ativo = true, Descricao = "Minhas roupas na moda!", DataCadastro = DateTime.ParseExact("2011-11-01", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture),
                 },
-                new Loja { LojaId = Guid.NewGuid(), Descricao = "Hamburguers top",  DataCadastro = DateTime.ParseExact("2002-02-27", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
-                new Loja { LojaId = Guid.NewGuid(), Descricao = "Comida Cazeira da Maria",  DataCadastro = DateTime.ParseExact("2019-02-11", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
-                new Loja { LojaId = Guid.NewGuid(), Descricao = "Loja da Vittoria",  DataCadastro = DateTime.ParseExact("2018-05-08", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture) },
-                new Loja { LojaId = Guid.NewGuid(), Descricao = "Periféricos PontoCom",  DataCadastro = DateTime.ParseExact("2018-05-30", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
-                new Loja { LojaId = Guid.NewGuid(), Descricao = "Posto MeuAmigo", DataCadastro = DateTime.ParseExact("2015-10-10", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
+                new Loja { LojaId = Guid.NewGuid(), Ativo = true, Descricao = "Hamburguers top",  DataCadastro = DateTime.ParseExact("2002-02-27", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
+                new Loja { LojaId = Guid.NewGuid(),  Ativo = true, Descricao = "Comida Cazeira da Maria",  DataCadastro = DateTime.ParseExact("2019-02-11", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
+                new Loja { LojaId = Guid.NewGuid(),  Ativo = true, Descricao = "Loja da Vittoria",  DataCadastro = DateTime.ParseExact("2018-05-08", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture) },
+                new Loja { LojaId = Guid.NewGuid(),  Ativo = true, Descricao = "Periféricos PontoCom",  DataCadastro = DateTime.ParseExact("2018-05-30", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
+                new Loja { LojaId = Guid.NewGuid(),  Ativo = true, Descricao = "Posto MeuAmigo", DataCadastro = DateTime.ParseExact("2015-10-10", "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)  },
             };
 
             context.Loja.AddRange(Lojas);
@@ -81,7 +81,7 @@ namespace PontoFidelidade.Persistence
                 ClienteId = id,
                 Nome = nome,
                 DataCadastro = DateTime.Now,
-                DataNascimento = !string.IsNullOrEmpty(dataNascimento) ? 
+                DataNascimento = !string.IsNullOrEmpty(dataNascimento) ?
                     DateTime.ParseExact(dataNascimento, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture) : DateTime.MinValue,
                 MovimentacoesDinheiro = new List<ClienteMovimentacao>()
                 {
@@ -96,7 +96,7 @@ namespace PontoFidelidade.Persistence
                         IdLoja = idLoja
                     }
                 },
-                MovimentacoesPontoFidelidade= new List<ClientePontoFidelidade>()
+                MovimentacoesPontoFidelidade = new List<ClientePontoFidelidade>()
                 {
                     new ClientePontoFidelidade()
                     {
@@ -109,8 +109,8 @@ namespace PontoFidelidade.Persistence
                         IdLoja = idLoja
                     }
                 }
-            };          
-		}
+            };
+        }
 
     }
 }

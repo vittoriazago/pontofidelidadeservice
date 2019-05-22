@@ -27,14 +27,14 @@ namespace PontoFidelidade.Domain.Models
         /// </summary>
         [Required(ErrorMessage = "Valor obrigatório!")]
         [Range(1, 9999999, ErrorMessage = "Valor inválidos! Faça uma operação de 0 a 9999999 reais!")]
-        public long Valor { get; set; }
+        public decimal Valor { get; set; }
 
         /// <summary>
         /// Valor atualizado da ultima movimentação com a movimentação atual
         /// </summary>
         [Required(ErrorMessage = "Saldo atual obrigatório!")]
         [Range(0, 9999999, ErrorMessage = "Saldo atual inválido!")]
-        public long SaldoAtual { get; set; }
+        public decimal SaldoAtual { get; set; }
 
         /// <summary>
         /// Operacao realizada define se adiciona ou subtrai do saldo do cliente

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using PontoFidelidade.Domain.Models;
+using PontoFidelidade.WebApi.Models;
 using System.Reflection;
 
 namespace PontoFidelidade.WebApi
@@ -10,8 +12,9 @@ namespace PontoFidelidade.WebApi
         {
             services.AddAutoMapper(map =>
             {
-
-
+                map.CreateMap<UsuarioNovoDto, Usuario>();
+                map.CreateMap<Usuario, UsuarioLoginDto>();
+                map.CreateMap<Usuario, UsuarioNovoDto>();
             }, 
             Assembly.GetCallingAssembly());
         }

@@ -32,6 +32,7 @@ namespace PontoFidelidade.Domain.Models
         [DataType(DataType.Date)]
         public DateTime DataAbertura { get; set; }
         
+        public List<Usuario> Usuarios { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
