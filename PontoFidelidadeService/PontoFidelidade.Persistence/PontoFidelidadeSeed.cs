@@ -34,10 +34,10 @@ namespace PontoFidelidade.Persistence
         {
             var Lojas = new[]
             {
+                LojaNovo("Loja da Vittoria",  "2018-05-08", "93984583000113", new Guid("4B335B6F-9C4D--47F7-B798-C46FFBC4881A"), "1"),
                 LojaNovo("Minhas roupas na moda!", "2011-11-01", "62297611000109"),
                 LojaNovo("Hamburguers top",  "2002-02-27", "15655888000178"),
                 LojaNovo("Comida Cazeira da Maria",  "2019-02-11", "02649929000171"),
-                LojaNovo("Loja da Vittoria",  "2018-05-08", "93984583000113"),
                 LojaNovo("Periféricos PontoCom",  "2018-05-30", "06936230000143"),
                 LojaNovo("Posto MeuAmigo", "2015-10-10", "30519970000169"),
             };
@@ -67,7 +67,9 @@ namespace PontoFidelidade.Persistence
         private Loja LojaNovo(
             string descricao,
             string dataAbertura = null,
-            string cnpj = null
+            string cnpj = null,
+            Guid? chaveIntegracao = null,
+            string codigo = null
             )
         {
             var id = Guid.NewGuid();
@@ -78,9 +80,9 @@ namespace PontoFidelidade.Persistence
                 Descricao = descricao,
                 DataCadastro = DateTime.Now,
                 DataAbertura = DateTime.ParseExact(dataAbertura, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture),
-                ChaveIntegracao = Guid.NewGuid(),
+                ChaveIntegracao = chaveIntegracao ?? Guid.NewGuid(),
                 CNPJ = cnpj,
-                Codigo = (Guid.NewGuid().ToString()).Substring(0,3),
+                Codigo = codigo ?? (Guid.NewGuid().ToString()).Substring(0,3),
             };
         }
         private Cliente ClienteNovo(
