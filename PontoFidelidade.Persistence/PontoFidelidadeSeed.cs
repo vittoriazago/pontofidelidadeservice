@@ -110,9 +110,9 @@ namespace PontoFidelidade.Persistence
                         Valor = valorCredito ?? 5M,
                         DataOperacao = DateTime.Today,
                         Operacao = Domain.Models.Enums.Operacao.Credito,
-                        IdCliente = id,
+                        ClienteId = id,
                         ClienteMovimentacaoId = Guid.NewGuid(),
-                        IdLoja = idLoja
+                        LojaId = idLoja
                     }
                 },
                 MovimentacoesPontoFidelidade = new List<ClientePontoFidelidade>()

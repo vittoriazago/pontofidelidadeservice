@@ -35,6 +35,9 @@ namespace PontoFidelidade.WebApi.Configs
                 case EntidadeInvalidaException eiex:
                     status = HttpStatusCode.BadRequest;
                     break;
+                case SaldoInsuficienteException eiex:
+                    status = HttpStatusCode.PreconditionFailed;
+                    break;
                 default:
                     status = HttpStatusCode.InternalServerError;
                     message = "Ocorreu um erro! Tente novamente mais tarde!";

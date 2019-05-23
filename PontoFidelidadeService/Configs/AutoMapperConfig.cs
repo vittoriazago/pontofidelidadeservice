@@ -22,8 +22,15 @@ namespace PontoFidelidade.WebApi
                     .ForMember(c => c.SaldoAtualDinheiro, c => c.MapFrom(d => d.SaldoAtual ?? 0))
                     .ForMember(c => c.SaldoAtualPontos, c => c.MapFrom(d => d.PontosAtual ?? 0));
                 map.CreateMap<ClienteCadastroDto, Cliente>();
-                
 
+
+                map.CreateMap<ClienteMovimentacaoCadastroDto, ClienteMovimentacao>()
+                    .ForMember(c => c.Valor, c => c.MapFrom(d => d.ValorOperacao));
+                map.CreateMap<ClienteMovimentacao, ClienteConsultaDto>()
+                    .ForMember(c => c.SaldoAtualDinheiro, c => c.MapFrom(d => d.Cliente.SaldoAtual ?? 0))
+                    .ForMember(c => c.SaldoAtualPontos, c => c.MapFrom(d => d.Cliente.PontosAtual ?? 0))
+                    .ForMember(c => c.CPF, c => c.MapFrom(d => d.Cliente.CPF))
+                    .ForMember(c => c.Nome, c => c.MapFrom(d => d.Cliente.Nome));
 
             }, 
             Assembly.GetCallingAssembly());

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace PontoFidelidade.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/FidelidadeService")]
     [ApiController]
     public class FidelidadeServiceController : ControllerBase
     {

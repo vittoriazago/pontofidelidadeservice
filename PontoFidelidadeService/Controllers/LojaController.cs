@@ -12,7 +12,7 @@ using static PontoFidelidade.Domain.Services.LojaService;
 
 namespace PontoFidelidade.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/loja")]
     [ApiController]
     public class LojaController : ControllerBase
     {

@@ -30,14 +30,14 @@ namespace PontoFidelidade.Domain.Models
         {
             get
             {
-                return MovimentacoesDinheiro.OrderByDescending(d => d.DataOperacao).FirstOrDefault()?.SaldoAtual;
+                return MovimentacoesDinheiro?.OrderByDescending(d => d.DataOperacao)?.FirstOrDefault()?.SaldoAtual;
             }
         }
         public long? PontosAtual
         {
             get
             {
-                return MovimentacoesPontoFidelidade.OrderByDescending(d => d.DataOperacao).FirstOrDefault()?.SaldoAtual;
+                return MovimentacoesPontoFidelidade?.OrderByDescending(d => d.DataOperacao)?.FirstOrDefault()?.SaldoAtual;
             }
         }
         public List<ClienteMovimentacao> MovimentacoesDinheiro { get; set; }

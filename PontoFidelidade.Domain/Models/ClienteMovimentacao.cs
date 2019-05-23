@@ -14,13 +14,13 @@ namespace PontoFidelidade.Domain.Models
         /// Identificador do cliente que teve o saldo alterado
         /// </summary>
         [Required(ErrorMessage = "Cliente obrigatório!")]
-        public Guid IdCliente { get; set; }
+        public Guid ClienteId { get; set; }
 
         /// <summary>
         /// Loja que efetuou a operação no saldo do cliente
         /// </summary>
         [Required(ErrorMessage = "Identificador da loja obrigatório!")]
-        public Guid IdLoja { get; set; }
+        public Guid LojaId { get; set; }
 
         /// <summary>
         /// Valor em reais da operação realizada
