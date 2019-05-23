@@ -34,7 +34,7 @@ namespace PontoFidelidade.Persistence
         {
             var Lojas = new[]
             {
-                LojaNovo("Loja da Vittoria",  "2018-05-08", "93984583000113", new Guid("4B335B6F-9C4D--47F7-B798-C46FFBC4881A"), "1"),
+                LojaNovo("Loja da Vittoria",  "2018-05-08", "93984583000113", new Guid("4B335B6F-9C4D-47F7-B798-C46FFBC4881A"), "1"),
                 LojaNovo("Minhas roupas na moda!", "2011-11-01", "62297611000109"),
                 LojaNovo("Hamburguers top",  "2002-02-27", "15655888000178"),
                 LojaNovo("Comida Cazeira da Maria",  "2019-02-11", "02649929000171"),

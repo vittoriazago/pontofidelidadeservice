@@ -31,6 +31,11 @@ namespace PontoFidelidade.WebApi.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Consultar cliente por id
+        /// </summary>
+        /// <param name="id">Identificador do cliente</param>
+        /// <returns>Cliente encontrado</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<ClienteConsultaDto>> Get(Guid id)
         {
@@ -45,9 +50,12 @@ namespace PontoFidelidade.WebApi.Controllers
         }
 
         /// <summary>
-        /// Cliente não precisa estar logado para consultar seu saldo atual
+        /// Consultar cliente por cpf
         /// </summary>
-        /// <param name="cpf">C</param>
+        /// <remarks>
+        /// Cliente não precisa estar logado para consultar seu saldo atual
+        /// </remarks>
+        /// <param name="cpf">Cpf do cliente</param>
         /// <returns>Cliente encontrado</returns>
         [HttpGet("")]
         [AllowAnonymous]
@@ -62,6 +70,22 @@ namespace PontoFidelidade.WebApi.Controllers
 
             return Ok(clienteDto);
         }
-        
+
+        /// <summary>
+        /// Cadastrar um novo cliente
+        /// </summary>
+        /// <param name="clienteDto">Dados de um cliente</param>
+        /// <returns>Cliente cadastrado</returns>
+        [HttpPost("")]
+        public async Task<ActionResult<ClienteConsultaDto>> Post(ClienteCadastroDto clienteDto)
+        {
+            var cliente = _mapper.Map<Cliente>(clienteDto);
+            cliente = _clienteService.AdicionarCliente(cliente);
+
+            var clienteRetrono = _mapper.Map<ClienteConsultaDto>(cliente);
+
+            return Ok(clienteRetrono);
+        }
+
     }
 }

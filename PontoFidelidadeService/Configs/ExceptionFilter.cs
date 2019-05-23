@@ -29,6 +29,12 @@ namespace PontoFidelidade.WebApi.Configs
                 case UsuarioInvalidoException uiex:
                     status = HttpStatusCode.Unauthorized;
                     break;
+                case ClienteJaCadastradoException cex:
+                    status = HttpStatusCode.Conflict;
+                    break;
+                case EntidadeInvalidaException eiex:
+                    status = HttpStatusCode.BadRequest;
+                    break;
                 default:
                     status = HttpStatusCode.InternalServerError;
                     message = "Ocorreu um erro! Tente novamente mais tarde!";

@@ -1,9 +1,8 @@
 ﻿using NUnit.Framework;
+using PontoFidelidade.Domain.Exceptions;
 using PontoFidelidade.Domain.Models;
 using PontoFidelidade.Domain.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PontoFidelidade.Tests.Services
 {
@@ -13,7 +12,7 @@ namespace PontoFidelidade.Tests.Services
         ClienteService _serviceCliente;
 
         string cpfTeste = "43553936827";
-        string cpfTesteFormatado = "435.539.368-27";
+        readonly string cpfTesteFormatado = "435.539.368-27";
         Guid idTeste = Guid.NewGuid();
 
         [SetUp]
@@ -54,6 +53,44 @@ namespace PontoFidelidade.Tests.Services
         {
             var clienteEncontrado = _serviceCliente.ConsultaClientePorId(Guid.NewGuid()).Result;
             Assert.IsNull(clienteEncontrado);
+        }
+        [Test]
+        public void Cliente_Adicionar_Sucesso()
+        {
+            var cliente = _serviceCliente.AdicionarCliente(new Cliente()
+            {
+                CPF = "982.378.329-94",
+                Nome = "Vittoria Zago",
+            });
+            Assert.IsNotNull(cliente);
+        }
+        [Test]
+        public void Cliente_Adicionar_Falha()
+        {
+            Assert.Throws<ClienteJaCadastradoException>(() =>
+            {
+                var cliente = _serviceCliente.AdicionarCliente(new Cliente()
+                {
+                    CPF = cpfTeste,
+                    Nome = "Vittoria Zago",
+                });
+            });
+            Assert.Throws<EntidadeInvalidaException>(() =>
+            {
+                var cliente = _serviceCliente.AdicionarCliente(new Cliente()
+                {
+                    CPF = "1",//cpf invalido
+                    Nome = "Vittoria Zago",
+                });
+            });
+            Assert.Throws<EntidadeInvalidaException>(() =>
+            {
+                var cliente = _serviceCliente.AdicionarCliente(new Cliente()
+                {
+                    CPF = "982.378.329-94",
+                    Nome = null, //nome inválido
+                });
+            });
         }
     }
 }

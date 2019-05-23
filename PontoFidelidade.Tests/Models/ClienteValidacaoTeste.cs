@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PontoFidelidade.Tests.Models
 {
-    public class ClienteValidacaoTeste : TesteBaseValidacao
+    public class ClienteValidacaoTeste 
     {
 
         [Test]
@@ -20,7 +20,7 @@ namespace PontoFidelidade.Tests.Models
                 ClienteId = Guid.NewGuid()
             };
 
-            Assert.AreEqual(0, ValidateModel(novoCliente).Count);
+            Assert.AreEqual(0, ValidacaoHelper.ValidateModel(novoCliente).Count);
         }
         [Test]
         public void Cliente_Validacao_Falha()
@@ -31,14 +31,14 @@ namespace PontoFidelidade.Tests.Models
                 DataCadastro = DateTime.Now,
                 ClienteId = Guid.NewGuid()
             };
-            Assert.AreEqual(1, ValidateModel(novoCliente).Count);
+            Assert.AreEqual(1, ValidacaoHelper.ValidateModel(novoCliente).Count);
             novoCliente = new Cliente()
             {
                 CPF = "43553936827",
                 DataCadastro = DateTime.Now,
                 ClienteId = Guid.NewGuid()
             };
-            Assert.AreEqual(1, ValidateModel(novoCliente).Count);
+            Assert.AreEqual(1, ValidacaoHelper.ValidateModel(novoCliente).Count);
             novoCliente = new Cliente()
             {
                 CPF = "43553936827980802388374390",
@@ -46,14 +46,14 @@ namespace PontoFidelidade.Tests.Models
                 Nome = "Vittoria Zago",
                 ClienteId = Guid.NewGuid()
             };
-            Assert.AreEqual(1, ValidateModel(novoCliente).Count);
+            Assert.AreEqual(1, ValidacaoHelper.ValidateModel(novoCliente).Count);
             novoCliente = new Cliente()
             {
                 CPF = "43553936827",
                 Nome = "Vittoria Zago",
                 ClienteId = Guid.NewGuid()
             };
-            Assert.AreEqual(1, ValidateModel(novoCliente).Count);
+            Assert.AreEqual(1, ValidacaoHelper.ValidateModel(novoCliente).Count);
             novoCliente = new Cliente()
             {
                 CPF = "43553936827",
@@ -61,14 +61,14 @@ namespace PontoFidelidade.Tests.Models
                 DataCadastro = DateTime.Today.AddDays(5),
                 ClienteId = Guid.NewGuid()
             };
-            Assert.AreEqual(1, ValidateModel(novoCliente).Count);
+            Assert.AreEqual(1, ValidacaoHelper.ValidateModel(novoCliente).Count);
             novoCliente = new Cliente()
             {
                 CPF = "43553936827",
                 Nome = "Vittoria Zago",
                 DataCadastro = DateTime.Now,
             };
-            Assert.AreEqual(1, ValidateModel(novoCliente).Count);
+            Assert.AreEqual(1, ValidacaoHelper.ValidateModel(novoCliente).Count);
 
         }
     }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace PontoFidelidade.Tests.Models
+namespace PontoFidelidade.Domain.Models
 {
-    public class TesteBaseValidacao
+    public static class ValidacaoHelper
     {
-        internal IList<ValidationResult> ValidateModel(object model)
+        public static IList<ValidationResult> ValidateModel(object model)
         {
             var validationResults = new List<ValidationResult>();
             var ctx = new ValidationContext(model, null, null);
