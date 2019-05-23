@@ -60,6 +60,12 @@ namespace PontoFidelidade.Domain.Models
                     $"Data da Operação dos pontos não pode ser maior que hoje!",
                     new[] { "DataOperacao" });
             }
+            if (Valor <= 0)
+            {
+                yield return new ValidationResult(
+                    $"Valor da Operação deve ser maior que zero!",
+                    new[] { "Valor" });
+            }
         }
     }
 }

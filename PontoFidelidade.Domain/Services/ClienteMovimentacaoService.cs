@@ -31,7 +31,7 @@ namespace PontoFidelidade.Domain.Services
             if (clienteExistente == null)
                 throw new ClienteNaoEncontradoException("Cliente não encontrado!");
 
-            var lojaExistente = _repoLoja.GetAsync(c =>
+            var lojaExistente = _repoLoja.GetAsync(c => c.Ativo &&
                        c.LojaId == movimentacaoNova.LojaId).Result.FirstOrDefault();
             if (lojaExistente == null)
                 throw new LojaNaoEncontradaException("Loja não encontrada!");
