@@ -1,5 +1,5 @@
 language: csharp
-solution: "./PontoFidelidadeService/PontoFidelidadeService.sln"
+solution: "./PontoFidelidadeService.sln"
 mono: none
 sudo: required
 dist: xenial
@@ -7,9 +7,9 @@ dotnet: 2.2
 script:
     - dotnet restore
     - dotnet build
-    - dotnet test PontoFidelidadeService/PontoFidelidade.Tests/PontoFidelidade.Tests.csproj --filter TestCategory!=OPTIONAL-TEST
+    - dotnet test PontoFidelidade.Tests/PontoFidelidade.Tests.csproj --filter TestCategory!=OPTIONAL-TEST
 after_script:
-    - dotnet test PontoFidelidadeService/PontoFidelidade.Tests/PontoFidelidade.Tests.csproj --filter TestCategory=OPTIONAL-TEST
+    - dotnet test PontoFidelidade.Tests/PontoFidelidade.Tests.csproj --filter TestCategory=OPTIONAL-TEST
     - pip install --user awscli
     - export PATH=$PATH:$HOME/.local/bin
     - aws ecr get-login --region us-west-2 --no-include-email
