@@ -36,13 +36,13 @@ namespace PontoFidelidade.Domain.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (DataCadastro > DateTime.Today)
+            if (DataCadastro.Date > DateTime.Today)
             {
                 yield return new ValidationResult(
                     $"Data de cadastro de uma loja não pode ser maior que hoje!",
                     new[] { "DataCadastro" });
             }
-            if (DataAbertura > DateTime.Today)
+            if (DataAbertura.Date > DateTime.Today)
             {
                 yield return new ValidationResult(
                     $"Data de abertura de uma loja não pode ser maior que hoje!",

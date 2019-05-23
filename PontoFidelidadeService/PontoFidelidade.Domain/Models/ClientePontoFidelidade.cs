@@ -53,7 +53,7 @@ namespace PontoFidelidade.Domain.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (DataOperacao > DateTime.Today)
+            if (DataOperacao.Date > DateTime.Today)
             {
                 yield return new ValidationResult(
                     $"Data da Operação dos pontos não pode ser maior que hoje!",

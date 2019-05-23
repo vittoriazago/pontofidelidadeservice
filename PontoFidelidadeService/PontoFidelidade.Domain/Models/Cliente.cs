@@ -23,7 +23,7 @@ namespace PontoFidelidade.Domain.Models
         public DateTime DataCadastro { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime DataNascimento { get; set; }
+        public DateTime? DataNascimento { get; set; }
 
 
         public decimal? SaldoAtual
@@ -49,10 +49,22 @@ namespace PontoFidelidade.Domain.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (DataCadastro > DateTime.Today)
+            if (ClienteId == default)
+            {
+                yield return new ValidationResult(
+                    $"Identificador de Cliente inválido!",
+                    new[] { "ClienteId" });
+            }
+            if (DataCadastro.Date > DateTime.Today)
             {
                 yield return new ValidationResult(
                     $"Data de cadastro de uma pessoa não pode ser maior que hoje!",
+                    new[] { "DataCadastro" });
+            }
+            if (DataCadastro == DateTime.MinValue)
+            {
+                yield return new ValidationResult(
+                    $"Data de cadastro inválida!",
                     new[] { "DataCadastro" });
             }
         }

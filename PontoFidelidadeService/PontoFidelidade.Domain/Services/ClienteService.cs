@@ -18,7 +18,7 @@ namespace PontoFidelidade.Domain.Services
 
         public async Task<Cliente> ConsultaClientePorCpfCnpj(string documento)
         {
-            var clientes = await _repoCliente.GetAsync(c => c.CPF == documento);
+            var clientes = await _repoCliente.GetAsync(c => c.CPF == documento.Replace("-", "").Replace("\\.", ""));
             return clientes.FirstOrDefault();
         }
         public async Task<Cliente> ConsultaClientePorId(Guid id)
