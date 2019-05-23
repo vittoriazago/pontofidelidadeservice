@@ -18,12 +18,12 @@ namespace PontoFidelidade.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClienteController : ControllerBase
+    public class FidelidadeServiceController : ControllerBase
     {
         private readonly ClienteService _clienteService;
         private readonly IMapper _mapper;
 
-        public ClienteController(ClienteService clienteService,
+        public FidelidadeServiceController(ClienteService clienteService,
             IMapper mapper
             )
         {
@@ -31,18 +31,6 @@ namespace PontoFidelidade.WebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ClienteConsultaDto>> Get(Guid id)
-        {
-            var cliente = await _clienteService.ConsultaClientePorId(id);
-
-            if (cliente == null)
-                return NotFound("Cliente não encontrado!");
-
-            var clienteDto = _mapper.Map<ClienteConsultaDto>(cliente);
-
-            return Ok(clienteDto);
-        }
 
         /// <summary>
         /// Cliente não precisa estar logado para consultar seu saldo atual
@@ -50,6 +38,7 @@ namespace PontoFidelidade.WebApi.Controllers
         /// <param name="cpf">C</param>
         /// <returns>Cliente encontrado</returns>
         [HttpGet("")]
+        [Obsolete("Metódo não se encontra no padrão REST. Favor usar api/Cliente")]
         [AllowAnonymous]
         public async Task<ActionResult<ClienteConsultaDto>> GetPessoaCpfCnpj(string cpf)
         {
@@ -62,6 +51,5 @@ namespace PontoFidelidade.WebApi.Controllers
 
             return Ok(clienteDto);
         }
-        
     }
 }
