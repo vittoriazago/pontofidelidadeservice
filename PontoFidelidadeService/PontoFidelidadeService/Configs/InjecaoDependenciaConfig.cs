@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PontoFidelidade.Domain;
 using PontoFidelidade.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PontoFidelidade.WebApi
 {

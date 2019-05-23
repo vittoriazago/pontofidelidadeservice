@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using PontoFidelidade.Domain.Models;
 using PontoFidelidade.WebApi.Models;
@@ -20,14 +21,14 @@ namespace PontoFidelidade.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
         private readonly IConfiguration _config;
         private readonly SignInManager<Usuario> _signInManager;
         private readonly UserManager<Usuario> _UsuarioManager;
         private readonly IMapper _mapper;
 
-        public UserController(IConfiguration config,
+        public UsuarioController(IConfiguration config,
             SignInManager<Usuario> signInManager,
             UserManager<Usuario> UsuarioManager,
             IMapper mapper
@@ -41,18 +42,20 @@ namespace PontoFidelidade.WebApi.Controllers
 
         [HttpPost("")]
         [AllowAnonymous]
-        public async Task<IActionResult> PostUsuario(UsuarioNovoDto usuarioNovoDto)
+        public async Task<ActionResult<UsuarioNovoDto>> PostUsuario(UsuarioNovoDto usuarioNovoDto)
         {
             try
             {
-                var Usuario = _mapper.Map<Usuario>(usuarioNovoDto);
-                var result = await _UsuarioManager.CreateAsync(Usuario, usuarioNovoDto.Password);
+                var usuario = _mapper.Map<Usuario>(usuarioNovoDto);
+                usuario.Ativo = true;
+                usuario.DataCadastro = DateTime.Now;
+                var result = await _UsuarioManager.CreateAsync(usuario, usuarioNovoDto.Password);
 
-                var UsuarioToReturn = _mapper.Map<UsuarioNovoDto>(Usuario);
+                var usuarioDto = _mapper.Map<UsuarioNovoDto>(usuario);
                 if (!result.Succeeded)
                     return BadRequest(result.Errors);
 
-                return Created($"~/", UsuarioToReturn);
+                return Created($"~/", usuarioDto);
             }
             catch (Exception ex)
             {
@@ -67,9 +70,9 @@ namespace PontoFidelidade.WebApi.Controllers
         {
             try
             {
-                var Usuario = await _UsuarioManager.FindByNameAsync(usuarioLoginDto.UserName);
+                var usuario = await _UsuarioManager.FindByNameAsync(usuarioLoginDto.UserName);
 
-                var result = await _signInManager.CheckPasswordSignInAsync(Usuario, usuarioLoginDto.Password, false);
+                var result = await _signInManager.CheckPasswordSignInAsync(usuario, usuarioLoginDto.Password, false);
 
                 if (!result.Succeeded)
                     return Unauthorized();
@@ -77,12 +80,12 @@ namespace PontoFidelidade.WebApi.Controllers
                 var appUsuario = await _UsuarioManager.Users
                         .FirstOrDefaultAsync(u => u.NormalizedUserName == usuarioLoginDto.UserName.ToUpper());
 
-                var UsuarioToReturn = _mapper.Map<UsuarioNovoDto>(Usuario);
+                var usuarioToReturn = _mapper.Map<UsuarioNovoDto>(usuario);
 
                 return Ok(new
                 {
-                    token = GenerateJwtToken(appUsuario).Result,
-                    Usuario = UsuarioToReturn
+                    Token = GenerateJwtToken(appUsuario).Result,
+                    Usuario = usuarioToReturn
                 });
             }
             catch (Exception ex)
@@ -107,13 +110,15 @@ namespace PontoFidelidade.WebApi.Controllers
 
             var key = new SymmetricSecurityKey(Encoding.ASCII
                 .GetBytes(_config.GetSection("AppSettings:Token").Value));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddHours(5),
                 SigningCredentials = creds
             };
+
+            IdentityModelEventSource.ShowPII = true;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);

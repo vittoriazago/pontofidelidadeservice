@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace PontoFidelidade.Persistence
+namespace PontoFidelidade.Domain
 {
     public interface IRepositorio<T> where T : class
     {

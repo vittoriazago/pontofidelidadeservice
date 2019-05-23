@@ -10,6 +10,7 @@ namespace PontoFidelidade.Domain.Models
         [Required(ErrorMessage = "Identificador do cliente obrigatório!")]
         public Guid ClienteId { get; set; }
 
+        [Required(ErrorMessage = "CPF obrigatório!")]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "CPF deve conter 11 dígitos!")]
         public string CPF { get; set; }
 
