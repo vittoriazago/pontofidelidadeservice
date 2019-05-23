@@ -1,5 +1,5 @@
 language: csharp
-solution: "./PontoFidelidadeService.sln"
+solution: "./PontoFidelidadeService/PontoFidelidadeService.sln"
 mono: none
 sudo: required
 dist: xenial
