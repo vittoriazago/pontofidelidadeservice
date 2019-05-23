@@ -23,7 +23,10 @@ namespace PontoFidelidade.Tests.Services
 
         public Task<IEnumerable<T>> GetAsync(System.Linq.Expressions.Expression<Func<T, bool>> filter = null, bool changeTracker = true, params System.Linq.Expressions.Expression<Func<T, object>>[] includes)
         {
-            return Task.Run(() => banco.AsEnumerable());
+            var result = banco.ToList();
+            if (filter != null)
+                result = result.AsQueryable().Where(filter).ToList();
+            return Task.Run(() => result.AsEnumerable());
         }
 
         public Task<bool> SaveChangesAsync()
